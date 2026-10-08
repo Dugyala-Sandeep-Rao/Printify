@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Printify | Shop Admin</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Inter:wght@400;500;600&display=swap"
+    >
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+    <header class="navbar">
+
+        <div class="logo">
+            <span class="logo-icon" aria-hidden="true">
+                <span class="logo-paper"></span>
+                <span class="logo-p">P</span>
+            </span>
+            <span class="logo-word" aria-label="Printify"><span style="--i: 0">P</span><span style="--i: 1">r</span><span style="--i: 2">i</span><span style="--i: 3">n</span><span style="--i: 4">t</span><span style="--i: 5">i</span><span style="--i: 6">f</span><span style="--i: 7">y</span></span>
+            <span class="admin-tag">Admin</span>
+        </div>
+
+        <nav>
+            <a href="index.html">Customer site</a>
+            <a href="#" id="logoutLink" hidden>Log out</a>
+        </nav>
+
+    </header>
+
+
+    <main class="admin">
+
+        <!-- LOGIN -->
+
+        <section class="print-card admin-login" id="loginCard">
+
+            <h2>Shop admin</h2>
+
+            <p>
+                Enter the admin token. It is printed in the server console when
+                the backend starts, and saved in <code>database/admin_token.txt</code>.
+            </p>
+
+            <form id="loginForm">
+                <div class="option">
+                    <label for="tokenInput">Admin token</label>
+                    <input type="password" id="tokenInput" autocomplete="current-password" required>
+                </div>
+
+                <p class="form-error" id="loginError" hidden></p>
+
+                <button type="submit" class="pay-btn">
+                    <span>Log in</span>
+                    <span>→</span>
+                </button>
+            </form>
+
+        </section>
+
+
+        <!-- DASHBOARD -->
+
+        <section id="dashboard" hidden>
+
+            <div class="admin-tiles">
+
+                <div class="admin-tile">
+                    <span>Printer</span>
+                    <strong id="printerName">-</strong>
+                    <small id="printerMessage" class="printer-message"></small>
+                </div>
+
+                <div class="admin-tile">
+                    <span>In queue</span>
+                    <strong id="queueCount">0</strong>
+                </div>
+
+                <div class="admin-tile">
+                    <span>Payments &amp; problems</span>
+                    <strong id="failedCount">0</strong>
+                </div>
+
+                <div class="admin-tile">
+                    <span>Revenue</span>
+                    <strong id="revenue">₹0</strong>
+                </div>
+
+            </div>
+
+
+            <div class="admin-toolbar">
+
+                <h2>Orders</h2>
+
+                <div class="option">
+                    <select id="statusFilter" aria-label="Filter by status">
+                        <option value="">All orders</option>
+                        <option value="verifying">Check payment</option>
+                        <option value="queued">In queue</option>
+                        <option value="printing">Printing</option>
+                        <option value="failed">Needs attention</option>
+                        <option value="completed">Completed</option>
+                        <option value="awaiting_payment">Awaiting payment</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </div>
+
+            </div>
+
+
+            <div class="table-wrap">
+
+                <table class="orders-table">
+
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>File</th>
+                            <th>Options</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Placed</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="ordersBody"></tbody>
+
+                </table>
+
+                <p class="empty-state" id="emptyState" hidden>No orders yet.</p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="admin.js"></script>
+
+</body>
+
+</html>

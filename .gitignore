@@ -1,0 +1,16 @@
+.env
+.venv/
+__pycache__/
+.pytest_cache/
+
+# Customer files and order data
+uploads/
+backend/uploads/
+database/*.db
+database/*.db-*
+database/admin_token.txt
+prints/
+database/razorpay_key.csv
+test_prints/
+test_uploads/
+

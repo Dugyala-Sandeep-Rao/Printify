@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#fff7ee">
+
+    <title>Printify | Online printing, simplified</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Caveat:wght@700&family=Inter:wght@400;500;600;700;800&display=swap"
+    >
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="fx.css">
+    <link rel="stylesheet" href="genz.css">
+
+</head>
+
+<body>
+
+    <!-- Warm background blobs -->
+    <div class="blobs" aria-hidden="true"><span></span><span></span><span></span></div>
+
+    <!-- ==========================================
+         NAVBAR
+    =========================================== -->
+
+    <header class="navbar">
+
+        <a class="logo" href="#" aria-label="Printify home">
+            <span class="logo-icon" aria-hidden="true">
+                <span class="logo-paper"></span>
+                <span class="logo-p">P</span>
+            </span>
+            <span class="logo-word" aria-label="Printify"><span style="--i: 0">P</span><span style="--i: 1">r</span><span style="--i: 2">i</span><span style="--i: 3">n</span><span style="--i: 4">t</span><span style="--i: 5">i</span><span style="--i: 6">f</span><span style="--i: 7">y</span></span>
+        </a>
+
+        <nav>
+            <a href="#how-it-works">How it works</a>
+            <a href="#pricing">Pricing</a>
+        </nav>
+
+        <div class="printer-status" id="printerStatus">
+            <span class="dot"></span>
+            <em id="printerStatusText">Checking printer...</em>
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <!-- ==========================================
+             HERO + PRINT STUDIO
+        =========================================== -->
+
+        <section class="hero">
+
+            <!-- Intro (swapped for the preview after upload) -->
+
+            <div class="hero-content" id="heroContent">
+
+                <div class="badge">printing, but make it easy</div>
+
+                <h1 class="hero-title">
+                    <span class="w" style="--i: 0">Print your</span>
+                    <span class="w word-rotator" style="--i: 1" aria-live="polite"><span id="rotatingWord">notes</span></span>
+                    <span class="w" style="--i: 2">in a minute.</span>
+                </h1>
+
+                <span class="scribble" aria-hidden="true">no queue, no stress</span>
+
+                <p>
+                    Drop your file, peep every page, pay online.
+                    Then just grab it at the counter. That's the whole vibe.
+                </p>
+
+                <ul class="hero-chips">
+                    <li>👀 Live preview</li>
+                    <li>💸 From ₹2 a page</li>
+                    <li>⚡ Track it live</li>
+                </ul>
+
+                <!-- 3D printer (added by fx3d.js when WebGL is available) -->
+                <div class="hero-3d" id="hero3d" aria-hidden="true">
+                    <span class="hero-3d-hint">Drag to rotate · tap to print</span>
+                </div>
+
+            </div>
+
+
+            <!-- Print preview -->
+
+            <section class="preview-panel" id="previewPanel" hidden aria-label="Print preview">
+
+                <div class="preview-head">
+                    <div>
+                        <span class="eyebrow">Preview</span>
+                        <h2 id="previewTitle">Your print</h2>
+                    </div>
+                    <div class="preview-meta" id="previewMeta"></div>
+                </div>
+
+                <div class="stage" id="stage">
+
+                    <button type="button" class="stage-nav prev" id="prevSheet" aria-label="Previous sheet">←</button>
+
+                    <div class="sheet-stack" id="sheetStack">
+                        <div class="stack-layer layer-2"></div>
+                        <div class="stack-layer layer-1"></div>
+
+                        <button type="button" class="sheet" id="sheet" aria-label="Zoom in on this page">
+                            <span class="sheet-inner" id="sheetInner">
+                                <span class="face front">
+                                    <img id="frontImage" alt="">
+                                    <span class="face-label" id="frontLabel">Page 1</span>
+                                </span>
+                                <span class="face back">
+                                    <img id="backImage" alt="">
+                                    <span class="blank-note" id="blankNote">Blank back</span>
+                                    <span class="face-label" id="backLabel">Page 2</span>
+                                </span>
+                            </span>
+                        </button>
+
+                        <span class="copies-sticker" id="copiesSticker">×2</span>
+                    </div>
+
+                    <button type="button" class="stage-nav next" id="nextSheet" aria-label="Next sheet">→</button>
+
+                </div>
+
+                <div class="stage-controls">
+                    <span class="sheet-counter" id="sheetCounter">Sheet 1 of 1</span>
+                    <button type="button" class="flip-btn" id="flipBtn" hidden>
+                        <span class="flip-icon">↻</span> Flip sheet
+                    </button>
+                </div>
+
+                <div class="thumbs" id="thumbs"></div>
+
+            </section>
+
+
+            <!-- ==========================================
+                 PRINT CARD
+            =========================================== -->
+
+            <div class="print-card" id="printCard">
+
+                <span class="spin-sticker" aria-hidden="true">
+                    <svg viewBox="0 0 100 100">
+                        <defs>
+                            <path id="stickerCircle" d="M50,50 m-34,0 a34,34 0 1,1 68,0 a34,34 0 1,1 -68,0"/>
+                        </defs>
+                        <text><textPath href="#stickerCircle" textLength="208" lengthAdjust="spacing">print • pay • pick up •</textPath></text>
+                    </svg>
+                    <b>🖨️</b>
+                </span>
+
+                <div class="card-header">
+                    <div>
+                        <h2>Print studio</h2>
+                        <p>Upload, choose, pay. Done.</p>
+                    </div>
+                    <ol class="steps-mini" id="stepsMini">
+                        <li class="active">Upload</li>
+                        <li>Options</li>
+                        <li>Pay</li>
+                    </ol>
+                </div>
+
+
+                <!-- UPLOAD -->
+
+                <section class="upload-section">
+
+                    <div class="upload-area" id="uploadArea">
+
+                        <input
+                            type="file"
+                            id="fileInput"
+                            accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt,.odt,.odp,.ods,.jpg,.jpeg,.png"
+                            hidden
+                        >
+
+                        <label for="fileInput" class="upload-content" id="uploadLabel">
+
+                            <span class="upload-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 16V4M7 9l5-5 5 5"/>
+                                    <path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/>
+                                </svg>
+                            </span>
+
+                            <strong>Drop your file here</strong>
+
+                            <span class="upload-hint">
+                                or <u>browse</u> &nbsp;·&nbsp; PDF, Word, PowerPoint, Excel, TXT, JPG, PNG
+                            </span>
+
+                        </label>
+
+
+                        <!-- SELECTED FILE -->
+
+                        <div id="fileInfo" class="file-info">
+
+                            <span class="file-icon" id="fileIcon">PDF</span>
+
+                            <div class="file-details">
+
+                                <span id="fileName" class="file-name"></span>
+
+                                <span class="file-status-row">
+                                    <span id="fileStatus" class="file-status">Ready to upload</span>
+                                    <span id="pageInfo" class="page-info">
+                                        · <span id="pageCount">0</span> pages
+                                    </span>
+                                </span>
+
+                                <span class="progress" id="uploadProgress">
+                                    <span class="progress-bar" id="uploadProgressBar"></span>
+                                </span>
+
+                            </div>
+
+                            <button type="button" id="removeFile" class="remove-file" aria-label="Remove file">×</button>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- OPTIONS -->
+
+                <section class="options-section">
+
+                    <div class="option-row">
+                        <span class="option-label" id="colorLabel">Colour</span>
+                        <div class="segmented" role="radiogroup" aria-labelledby="colorLabel" data-name="color">
+                            <label><input type="radio" name="color" value="bw" checked><span>Black &amp; white</span></label>
+                            <label><input type="radio" name="color" value="color"><span>Colour</span></label>
+                        </div>
+                    </div>
+
+                    <div class="option-row">
+                        <span class="option-label" id="paperLabel">Paper</span>
+                        <div class="segmented" role="radiogroup" aria-labelledby="paperLabel" data-name="paper">
+                            <label><input type="radio" name="paper" value="a4" checked><span>A4</span></label>
+                            <label><input type="radio" name="paper" value="a3"><span>A3</span></label>
+                            <label><input type="radio" name="paper" value="letter"><span>Letter</span></label>
+                        </div>
+                    </div>
+
+                    <div class="option-row">
+                        <span class="option-label" id="sidesLabel">Sides</span>
+                        <div class="segmented" role="radiogroup" aria-labelledby="sidesLabel" data-name="sides">
+                            <label><input type="radio" name="sides" value="single" checked><span>Single</span></label>
+                            <label><input type="radio" name="sides" value="double"><span>Double-sided</span></label>
+                        </div>
+                    </div>
+
+                    <div class="option-row">
+                        <label class="option-label" for="copies">Copies</label>
+                        <div class="stepper">
+                            <button type="button" id="copiesMinus" aria-label="Fewer copies">−</button>
+                            <input type="number" id="copies" value="1" min="1" max="100" inputmode="numeric">
+                            <button type="button" id="copiesPlus" aria-label="More copies">+</button>
+                        </div>
+                    </div>
+
+                </section>
+
+
+                <!-- PRICE -->
+
+                <section class="price-section">
+
+                    <div>
+                        <span>Total</span>
+                        <small id="priceDetails">Upload a document to see the price</small>
+                    </div>
+
+                    <strong id="price">₹0</strong>
+
+                </section>
+
+
+                <button class="pay-btn" id="payBtn" type="button">
+                    <span>Pay &amp; print</span>
+                    <span class="arrow">→</span>
+                </button>
+
+                <p class="form-error" id="formError" hidden></p>
+
+            </div>
+
+
+            <!-- ==========================================
+                 ORDER TRACKING
+            =========================================== -->
+
+            <div class="print-card order-panel" id="orderPanel" hidden>
+
+                <div class="card-header">
+                    <div>
+                        <h2>Order <span id="orderNumber"></span></h2>
+                        <p id="orderSummary"></p>
+                    </div>
+                    <div class="order-badge" id="orderBadge"></div>
+                </div>
+
+                <!-- Printer animation -->
+                <div class="printer-scene" id="printerScene" data-status="queued" aria-hidden="true">
+                    <div class="printer">
+                        <div class="printer-top"></div>
+                        <div class="printer-body">
+                            <span class="printer-light"></span>
+                            <span class="printer-slot"></span>
+                        </div>
+                        <div class="paper-out">
+                            <span></span><span></span><span></span>
+                        </div>
+                    </div>
+                    <div class="done-check">✓</div>
+                </div>
+
+                <ol class="order-steps" id="orderSteps">
+                    <li data-step="queued">Paid</li>
+                    <li data-step="printing">Printing</li>
+                    <li data-step="completed">Ready</li>
+                </ol>
+
+                <p class="order-message" id="orderMessage"></p>
+
+                <div class="order-actions">
+                    <button type="button" class="pay-btn compact" id="payAgainBtn" hidden>
+                        <span>Pay now</span>
+                        <span class="arrow">→</span>
+                    </button>
+                    <button type="button" class="secondary-btn" id="cancelOrderBtn" hidden>
+                        Cancel order
+                    </button>
+                    <button type="button" class="pay-btn compact" id="newOrderBtn">
+                        <span>Print something else</span>
+                        <span class="arrow">→</span>
+                    </button>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==========================================
+             TICKER
+        =========================================== -->
+
+        <div class="ticker-wrap" aria-hidden="true">
+            <div class="ticker">
+                <div class="ticker-track">
+                    <span>print ur notes</span><span>₹2 a page</span><span>no queues</span><span>live preview</span><span>pay with UPI</span><span>grab &amp; go</span>
+                    <span>print ur notes</span><span>₹2 a page</span><span>no queues</span><span>live preview</span><span>pay with UPI</span><span>grab &amp; go</span>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ==========================================
+             HOW IT WORKS
+        =========================================== -->
+
+        <section class="how-section" id="how-it-works">
+
+            <div class="section-title reveal">
+                <span>How it works</span>
+                <h2>Three steps. <em>That's it.</em></h2>
+            </div>
+
+            <ol class="steps">
+
+                <li class="step-card reveal fx-spot" style="--delay: 0ms">
+                    <div class="step-icon">
+                        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Upload</h3>
+                        <p>PDF, Word, PowerPoint, Excel or a photo.</p>
+                    </div>
+                </li>
+
+                <li class="step-card reveal fx-spot" style="--delay: 100ms">
+                    <div class="step-icon">
+                        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/>
+                            <circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Choose</h3>
+                        <p>Colour, paper, sides and copies, with a live preview.</p>
+                    </div>
+                </li>
+
+                <li class="step-card reveal fx-spot" style="--delay: 200ms">
+                    <div class="step-icon">
+                        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v7H7z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Collect</h3>
+                        <p>Pay online, watch it print, pick it up.</p>
+                    </div>
+                </li>
+
+            </ol>
+
+        </section>
+
+
+        <!-- ==========================================
+             PRICING
+        =========================================== -->
+
+        <section class="pricing-section" id="pricing">
+
+            <div class="section-title reveal">
+                <span>Pricing</span>
+                <h2>Pay per page. <em>No hidden fees, fr.</em></h2>
+            </div>
+
+            <div class="pricing-card">
+
+                <div class="fx-spot price-tile reveal" style="--delay: 0ms">
+                    <span>Black &amp; white</span>
+                    <strong data-count="2">₹2</strong>
+                    <p>per page</p>
+                </div>
+
+                <div class="fx-spot price-tile reveal" style="--delay: 80ms">
+                    <span>Colour</span>
+                    <strong data-count="5">₹5</strong>
+                    <p>per page</p>
+                </div>
+
+                <div class="fx-spot price-tile reveal" style="--delay: 160ms">
+                    <span>Double-sided B&amp;W</span>
+                    <strong data-count="3">₹3</strong>
+                    <p>per sheet</p>
+                </div>
+
+                <div class="fx-spot price-tile featured reveal" style="--delay: 240ms">
+                    <span>Double-sided colour</span>
+                    <strong data-count="8">₹8</strong>
+                    <p>per sheet</p>
+                </div>
+
+            </div>
+
+            <p class="pricing-note reveal">
+                A3 adds ₹2 per sheet. The price is worked out from the real pages in your file.
+            </p>
+
+        </section>
+
+    </main>
+
+
+    <!-- ==========================================
+         FOOTER
+    =========================================== -->
+
+    <footer>
+
+        <div class="footer-logo">
+            <span class="logo-icon">P</span>
+            Printify
+        </div>
+
+        <p>
+            made with ☕ &amp; 🖨️ · © 2026 Printify · <a href="admin.html">Shop admin</a>
+        </p>
+
+    </footer>
+
+
+    <!-- ==========================================
+         PAYMENT DIALOG
+    =========================================== -->
+
+    <div class="modal" id="paymentModal" hidden>
+
+        <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="paymentTitle">
+
+            <button type="button" class="modal-close" id="closePayment" aria-label="Close">×</button>
+
+            <span class="eyebrow">Secure checkout</span>
+            <h2 id="paymentTitle">Checkout</h2>
+
+            <p class="modal-subtitle" id="paymentSummary"></p>
+
+            <div class="modal-total">
+                <span>Amount due</span>
+                <strong id="paymentAmount">₹0</strong>
+            </div>
+
+            <!-- Real UPI payment (shop UPI ID configured) -->
+            <div class="upi-pay" id="upiPay" hidden>
+
+                <div class="upi-step">
+                    <span class="step-dot">1</span>
+                    <div class="upi-step-body">
+
+                        <strong>Pay with any UPI app</strong>
+
+                        <a class="pay-btn upi-open" id="upiOpenBtn" href="#">
+                            <span>Open UPI app</span>
+                            <span id="upiOpenAmount">₹0</span>
+                        </a>
+
+                        <div class="upi-apps" aria-hidden="true">
+                            <span>GPay</span><span>PhonePe</span><span>Paytm</span><span>BHIM</span>
+                        </div>
+
+                        <div class="upi-qr-wrap">
+                            <img id="upiQr" class="upi-qr" alt="UPI QR code">
+                            <small>On a laptop? Scan this code with your phone.</small>
+                        </div>
+
+                        <p class="upi-to">
+                            Paying <b id="upiPayee"></b> · <span id="upiId"></span>
+                        </p>
+
+                    </div>
+                </div>
+
+                <div class="upi-step">
+                    <span class="step-dot">2</span>
+                    <div class="upi-step-body">
+
+                        <label for="utrInput"><strong>Enter the UPI reference number</strong></label>
+                        <small>The 12-digit UTR / UPI Ref No. on your payment receipt.</small>
+
+                        <input
+                            type="text"
+                            id="utrInput"
+                            class="utr-input"
+                            inputmode="numeric"
+                            autocomplete="off"
+                            maxlength="14"
+                            placeholder="e.g. 412345678901"
+                        >
+
+                        <p class="form-error" id="utrError" hidden></p>
+
+                        <button type="button" class="pay-btn" id="upiDoneBtn">
+                            <span>I've paid</span>
+                            <span class="arrow">→</span>
+                        </button>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Razorpay payment gateway (API keys configured) -->
+            <div class="rzp-pay" id="rzpPay" hidden>
+
+                <div class="rzp-methods" aria-hidden="true">
+                    <span>UPI</span><span>Cards</span><span>Netbanking</span><span>Wallets</span>
+                </div>
+
+                <p class="demo-note" id="rzpTestNote" hidden>
+                    Test mode: no real money is charged. Use UPI ID <b>success@razorpay</b>
+                    or card <b>4100 2800 0000 1007</b> (any future date, any CVV).
+                </p>
+
+                <p class="form-error" id="rzpError" hidden></p>
+
+                <button type="button" class="pay-btn" id="rzpPayBtn">
+                    <span>Pay securely</span>
+                    <span id="rzpPayAmount">₹0</span>
+                </button>
+
+                <small class="rzp-secure">🔒 Payments are processed by Razorpay.</small>
+
+            </div>
+
+            <!-- Demo payment (no UPI ID configured) -->
+            <div id="demoPay">
+
+                <div class="pay-methods">
+                    <label class="pay-method">
+                        <input type="radio" name="payMethod" value="upi" checked>
+                        <span>UPI</span>
+                    </label>
+                    <label class="pay-method">
+                        <input type="radio" name="payMethod" value="card">
+                        <span>Card</span>
+                    </label>
+                </div>
+
+                <p class="demo-note">
+                    Demo mode: no money is charged. Set the shop's UPI ID to take real payments.
+                </p>
+
+                <button type="button" class="pay-btn" id="confirmPayBtn">
+                    <span>Pay now</span>
+                    <span id="confirmPayAmount">₹0</span>
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Zoomed page -->
+    <div class="lightbox" id="lightbox" hidden>
+        <button type="button" class="modal-close" id="closeLightbox" aria-label="Close">×</button>
+        <img id="lightboxImage" alt="">
+        <span class="lightbox-label" id="lightboxLabel"></span>
+    </div>
+
+
+    <div class="toasts" id="toasts" aria-live="polite"></div>
+
+    <canvas class="confetti" id="confetti" aria-hidden="true"></canvas>
+
+    <script src="script.js"></script>
+    <script src="fx.js"></script>
+    <script type="module" src="fx3d.js"></script>
+
+</body>
+
+</html>

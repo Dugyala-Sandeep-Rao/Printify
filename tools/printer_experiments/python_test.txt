@@ -1,0 +1,6 @@
+ONLINE PRINTING PROJECT
+
+This page was sent using Python
+through the Windows printer driver.
+
+Printer: EPSON L4360

@@ -1,0 +1,378 @@
+.admin {
+    max-width: 1240px;
+
+    margin: 0 auto;
+    padding: 44px 6% 90px;
+}
+
+.admin-tag {
+    padding: 3px 10px;
+
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+
+    color: var(--muted);
+
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.admin-login {
+    max-width: 440px;
+    margin: 60px auto;
+}
+
+.admin-login h2 {
+    margin-bottom: 8px;
+
+    font-family: var(--serif);
+    font-size: 38px;
+    font-weight: 400;
+}
+
+.admin-login p {
+    margin-bottom: 24px;
+
+    color: var(--muted);
+
+    font-size: 14px;
+    line-height: 1.65;
+}
+
+.admin-login code {
+    padding: 1px 6px;
+
+    background: var(--bg-soft);
+    border-radius: 6px;
+
+    font-size: 12px;
+}
+
+
+/* Tiles */
+
+.admin-tiles {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+
+    margin-bottom: 40px;
+}
+
+.admin-tile {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+
+    padding: 22px 24px;
+
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+
+    animation: pop-in 0.7s var(--ease) both;
+}
+
+.admin-tile:nth-child(2) { animation-delay: 60ms; }
+.admin-tile:nth-child(3) { animation-delay: 120ms; }
+.admin-tile:nth-child(4) { animation-delay: 180ms; background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+.admin-tile span {
+    color: var(--muted);
+
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.admin-tile:nth-child(4) span {
+    color: #b9b5c2;
+}
+
+.admin-tile strong {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    font-family: var(--serif);
+    font-size: 40px;
+    font-weight: 400;
+    line-height: 1.1;
+}
+
+.admin-tile:first-child strong {
+    font-size: 24px;
+    line-height: 1.5;
+}
+
+.printer-message {
+    color: var(--green);
+
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.printer-message.problem {
+    color: var(--red);
+}
+
+
+/* Toolbar */
+
+.admin-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+
+    margin-bottom: 16px;
+}
+
+.admin-toolbar h2 {
+    font-family: var(--serif);
+    font-size: 38px;
+    font-weight: 400;
+}
+
+.admin-toolbar .option {
+    width: 220px;
+}
+
+
+/* Table */
+
+.table-wrap {
+    overflow-x: auto;
+
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+}
+
+.orders-table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    font-size: 14px;
+}
+
+.orders-table th {
+    padding: 14px 18px;
+
+    border-bottom: 1px solid var(--line);
+
+    color: var(--muted);
+
+    text-align: left;
+
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.orders-table td {
+    padding: 16px 18px;
+
+    border-bottom: 1px solid var(--line);
+
+    vertical-align: top;
+}
+
+.orders-table tbody tr {
+    transition: background 0.3s;
+}
+
+.orders-table tbody tr:hover {
+    background: #fbfaf7;
+}
+
+.orders-table tr:last-child td {
+    border-bottom: none;
+}
+
+.orders-table .file-cell {
+    max-width: 260px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    font-weight: 500;
+}
+
+.orders-table .file-cell.deleted {
+    color: var(--muted);
+
+    font-family: var(--serif);
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 400;
+}
+
+.orders-table .muted {
+    display: block;
+
+    margin-top: 3px;
+
+    color: var(--muted);
+
+    font-family: var(--sans);
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    white-space: normal;
+}
+
+.orders-table .error-text {
+    display: block;
+
+    margin-top: 5px;
+    max-width: 240px;
+
+    color: var(--red);
+
+    font-size: 12px;
+}
+
+.status-pill {
+    display: inline-block;
+
+    padding: 4px 11px;
+
+    background: var(--accent-soft);
+    color: var(--accent);
+
+    border-radius: 999px;
+
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.status-pill[data-status="completed"] { background: var(--green-soft); color: var(--green); }
+.status-pill[data-status="failed"] { background: var(--red-soft); color: var(--red); }
+.status-pill[data-status="printing"] { background: var(--amber-soft); color: var(--amber); }
+
+.status-pill[data-status="cancelled"],
+.status-pill[data-status="awaiting_payment"] {
+    background: var(--bg-soft);
+    color: var(--muted);
+}
+
+.row-actions {
+    display: flex;
+    gap: 6px;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
+.row-actions button {
+    padding: 7px 13px;
+
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+
+    color: var(--ink-2);
+
+    font-size: 12.5px;
+    font-weight: 500;
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition: border-color 0.3s, color 0.3s, background 0.3s;
+}
+
+.row-actions button:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.row-actions button.danger:hover {
+    border-color: var(--red);
+    color: var(--red);
+}
+
+.row-actions button.confirm {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--bg);
+}
+
+.row-actions button.confirm:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+}
+
+.empty-state {
+    padding: 56px;
+
+    color: var(--muted);
+
+    font-family: var(--serif);
+    font-size: 20px;
+    font-style: italic;
+    text-align: center;
+}
+
+
+/* UPI payments waiting for the shop to confirm */
+
+.orders-table tr.needs-check td {
+    background: #fdf8ee;
+}
+
+.status-pill[data-status="verifying"] {
+    background: var(--amber-soft);
+    color: var(--amber);
+    animation: pulse-pill 2s ease-in-out infinite;
+}
+
+@keyframes pulse-pill {
+    50% { box-shadow: 0 0 0 4px rgba(168, 109, 18, 0.12); }
+}
+
+
+@media (max-width: 1000px) {
+
+    .admin-tiles {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+
+    .admin {
+        padding: 26px 16px 60px;
+    }
+
+    .navbar nav {
+        display: flex;
+        gap: 16px;
+        margin-left: auto;
+    }
+
+    .admin-tiles {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .admin-toolbar .option {
+        width: 100%;
+    }
+}
